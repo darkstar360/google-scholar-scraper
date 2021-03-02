@@ -9,7 +9,7 @@ How to run:
 --double click google_scraper.exe
 --input keywords and other parameters
 --click on scrape button
-output data will be in json format in a json file named 'scraped_data.json'
+output data will be in json format in a json file named 'scraped_data/{keyword}.json'
 
 **Disclaimer: This repository is built to test academic purposes. Please use it responsibly.
 

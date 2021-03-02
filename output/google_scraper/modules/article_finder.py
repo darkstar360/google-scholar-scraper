@@ -54,6 +54,7 @@ def find_description(article_element, *args, **kwargs):
 
 
 def find_citation(article_element, *args, **kwargs):
+    cited_by = ''
     try:
         rows = article_element.find('div', attrs={'class': 'gs_fl'})
         citation_row = rows.find_all('a')

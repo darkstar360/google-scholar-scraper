@@ -3,7 +3,6 @@ from dearpygui.core import *
 from dearpygui.simple import *
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-# from selenium.webdriver.firefox.options import Options
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait, Select
@@ -20,6 +19,7 @@ import csv
 import random
 import subprocess
 import json
+import os
 
 from modules.article_finder import *
 
@@ -52,19 +52,6 @@ def start_scrape(sender, data):
     element = wait.until(EC.element_to_be_clickable((By.ID, 'gs_res_sb_yyc')))
     url = driver.current_url
     url += '&as_ylo=' + from_year + '&as_yhi=' + to_year
-    # driver.get(url)
-    # wait = WebDriverWait(driver, 10)
-    # element.click()
-    # wait = WebDriverWait(driver, 20)
-    # element = wait.until(EC.element_to_be_clickable((By.ID, 'gs_as_ylo')))
-    # element.send_keys(from_year)
-    # wait = WebDriverWait(driver, 20)
-    # element = wait.until(EC.visibility_of_element_located((By.NAME, 'as_yhi')))
-    # element.send_keys(to_year)
-    # wait = WebDriverWait(driver, 20)
-    # element = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'gs_btn_lsb')))
-    # element.click()
-    # # page_source = BeautifulSoup(driver.page_source, 'lxml')
     i = 0
     scraped = []
     driver.get(url)
@@ -109,7 +96,9 @@ def start_scrape(sender, data):
             time.sleep(5)
             driver.execute_script('window.scrollTo(0,document.body.scrollHeight);')
 
-    with open('scraped_data.json', 'w') as output:
+    # dir_path = os.path.dirname(os.path.realpath(__file__))
+    dir_path = os.getcwd()
+    with open(os.path.join(dir_path, 'scraped_data', keywords.replace(' ', '_') + '.json'), 'a') as output:
         json.dump(scraped, output)
         print(len(scraped), scraped)
         output.close()
